@@ -1,10 +1,53 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AnimatedUnderline from '../ui/AnimatedUnderline';
 import ScrollReveal from '../ui/ScrollReveal';
+import Toast from '../ui/Toast';
 import Button from '../ui/Button';
 import Card from '../ui/Card';
 import { PhoneIcon, MailIcon, LocationPinIcon } from './Icons';
 const ContactUs = () => {
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:4000';
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [subject, setSubject] = useState('');
+  const [message, setMessage] = useState('');
+  const [status, setStatus] = useState('');
+  const [error, setError] = useState('');
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setStatus('');
+    setError('');
+
+    if (!name || !email || !message) {
+      setError('Please fill in name, email, and message.');
+      return;
+    }
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/inquiry`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, email, subject, message }),
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || 'Failed to send inquiry.');
+      }
+
+      setStatus('Message sent successfully!');
+      setName('');
+      setEmail('');
+      setSubject('');
+      setMessage('');
+    } catch (err) {
+      setError(err.message || 'Submission failed.');
+    }
+  };
+
   return (
     <section className="w-full bg-white text-slate-800 py-24 md:py-32 select-none overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
@@ -54,35 +97,45 @@ const ContactUs = () => {
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
           <ScrollReveal delay={0.5} direction="right" className="bg-[#f8f9fa] p-8 md:p-10 rounded-sm">
-            <form className="flex flex-col gap-5 h-full">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-5 h-full">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <input 
                   type="text" 
                   placeholder="Your Name" 
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                   className="w-full bg-white px-5 py-3.5 text-slate-700 text-[15px] outline-none border border-transparent focus:border-[#06a3da] transition-colors"
                 />
                 <input 
                   type="email" 
                   placeholder="Your Email" 
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="w-full bg-white px-5 py-3.5 text-slate-700 text-[15px] outline-none border border-transparent focus:border-[#06a3da] transition-colors"
                 />
               </div>
               <input 
                 type="text" 
                 placeholder="Subject" 
+                value={subject}
+                onChange={(e) => setSubject(e.target.value)}
                 className="w-full bg-white px-5 py-3.5 text-slate-700 text-[15px] outline-none border border-transparent focus:border-[#06a3da] transition-colors"
               />
               <textarea 
                 placeholder="Message" 
                 rows="5"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
                 className="w-full bg-white px-5 py-3.5 text-slate-700 text-[15px] outline-none border border-transparent focus:border-[#06a3da] transition-colors resize-y grow"
               ></textarea>
               <Button 
+                type="submit"
                 text="Send Message" 
                 variant="solid" 
                 className="w-full py-4 text-base shadow-md mt-2" 
-                onClick={(e) => e.preventDefault()}
               />
+              {status && <Toast type="success" message={status} className="mt-4" />}
+              {error && <Toast type="error" message={error} className="mt-4" />}
             </form>
           </ScrollReveal>
           <ScrollReveal delay={0.6} direction="left" className="h-[400px] lg:h-auto min-h-[400px] rounded-sm overflow-hidden bg-slate-200">
