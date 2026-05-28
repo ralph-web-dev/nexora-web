@@ -6,7 +6,7 @@ import Button from '../ui/Button';
 import Card from '../ui/Card';
 import { PhoneIcon, MailIcon, LocationPinIcon } from './Icons';
 const ContactUs = () => {
-  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:4000';
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [subject, setSubject] = useState('');
@@ -28,7 +28,7 @@ const ContactUs = () => {
     setSubmitting(true);
 
     try {
-      const response = await fetch(`${API_BASE_URL}/api/inquiry`, {
+      const response = await fetch('/api/inquiry', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

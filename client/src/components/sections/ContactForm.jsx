@@ -7,7 +7,7 @@ import replyIcon from '../../assets/icons/reply.svg';
 import contactIcon from '../../assets/icons/contact.svg';
 import ScrollReveal from '../ui/ScrollReveal';
 const ContactForm = () => {
-  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:4000';
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [service, setService] = useState('');
@@ -29,7 +29,7 @@ const ContactForm = () => {
     setSubmitting(true);
 
     try {
-      const response = await fetch(`${API_BASE_URL}/api/inquiry`, {
+      const response = await fetch('/api/inquiry', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
