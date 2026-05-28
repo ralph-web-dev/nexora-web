@@ -11,9 +11,9 @@ const mailTransport = nodemailer.createTransport({
   },
 });
 
-const getLogoAttachment = () => ({
+const getLogoAttachment = (baseUrl) => ({
   filename: 'logo.png',
-  path: path.join(process.cwd(), 'api/assets/logo.png'),
+  href: `${baseUrl}/logo.png`,
   cid: 'nexora_logo',
 });
 
@@ -83,6 +83,10 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'A valid email address is required' });
   }
 
+  const host = req.headers.host;
+  const protocol = req.headers['x-forwarded-proto'] || 'http';
+  const baseUrl = `${protocol}://${host}`;
+
   const plainText = `A new newsletter signup has been received:\n\nEmail: ${email}`;
 
   const htmlContent = `
@@ -108,7 +112,7 @@ export default async function handler(req, res) {
     subject: `New newsletter signup: ${email}`,
     text: plainText,
     html: buildEmailTemplate(`New newsletter signup: ${email}`, htmlContent),
-    attachments: [getLogoAttachment()],
+    attachments: [getLogoAttachment(baseUrl)],
     replyTo: email,
   };
 
