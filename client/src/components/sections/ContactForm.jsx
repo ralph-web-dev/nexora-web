@@ -1,10 +1,59 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AnimatedUnderline from '../ui/AnimatedUnderline';
 import Dropdown from '../ui/Dropdown';
+import Toast from '../ui/Toast';
 import replyIcon from '../../assets/icons/reply.svg';
 import contactIcon from '../../assets/icons/contact.svg';
 import ScrollReveal from '../ui/ScrollReveal';
 const ContactForm = () => {
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:4000';
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [service, setService] = useState('');
+  const [message, setMessage] = useState('');
+  const [status, setStatus] = useState('');
+  const [error, setError] = useState('');
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setStatus('');
+    setError('');
+
+    if (!name || !email || !message) {
+      setError('Please provide name, email, and a message.');
+      return;
+    }
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/inquiry`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          service,
+          subject: service,
+          message,
+        }),
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || 'Failed to send inquiry.');
+      }
+
+      setStatus('Inquiry sent successfully!');
+      setName('');
+      setEmail('');
+      setService('');
+      setMessage('');
+    } catch (err) {
+      setError(err.message || 'Submission failed.');
+    }
+  };
+
   return (
     <section id="contact" className="w-full bg-white text-slate-800 py-24 md:py-32 select-none overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
@@ -54,39 +103,49 @@ const ContactForm = () => {
             </ScrollReveal>
           </div>
           <ScrollReveal delay={0.3} direction="none" startScale={0.9} className="bg-[#06a3da] p-8 md:p-12 w-full h-full flex flex-col justify-center shadow-none">
-            <form className="flex flex-col gap-5">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-5">
               <input
                 type="text"
                 placeholder="Your Name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
                 className="w-full bg-white p-4 text-[#4f4f4f] placeholder-slate-400 outline-none transition-shadow rounded-none"
               />
               <input
                 type="email"
                 placeholder="Your Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="w-full bg-white p-4 text-[#4f4f4f] placeholder-slate-400 outline-none transition-shadow rounded-none"
               />
               <Dropdown
                 defaultText="Select A Service"
+                value={service}
+                onChange={(e) => setService(e.target.value)}
                 options={[
-                  { value: 'erp', label: 'ERP Solutions' },
-                  { value: 'far-dfars', label: 'FAR-DFARS Compliance' },
-                  { value: 'web', label: 'Web Development' },
-                  { value: 'mobile', label: 'Mobile Development' },
-                  { value: 'ai', label: 'AI Solutions' },
-                  { value: 'elearning', label: 'E-Learning' }
+                  { value: 'ERP Solutions', label: 'ERP Solutions' },
+                  { value: 'FAR-DFARS Compliance', label: 'FAR-DFARS Compliance' },
+                  { value: 'Web Development', label: 'Web Development' },
+                  { value: 'Mobile Development', label: 'Mobile Development' },
+                  { value: 'AI Solutions', label: 'AI Solutions' },
+                  { value: 'E-Learning', label: 'E-Learning' }
                 ]}
               />
               <textarea
                 placeholder="Message"
                 rows="4"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
                 className="w-full bg-white p-4 text-[#4f4f4f] placeholder-slate-400 outline-none transition-shadow resize-y rounded-none"
               ></textarea>
               <button
-                type="button"
+                type="submit"
                 className="w-full bg-[#091e3e] text-white text-sm font-bold p-4 hover:bg-[#071630] transition-colors duration-300 rounded-none cursor-pointer"
               >
                 Request a Quote
               </button>
+              {status && <Toast type="success" message={status} className="mt-4" />}
+              {error && <Toast type="error" message={error} className="mt-4" />}
             </form>
           </ScrollReveal>
         </div>
