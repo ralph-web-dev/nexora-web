@@ -46,7 +46,8 @@ server/                 # Legacy/local Express API environment
 * React
 * Vite
 * JavaScript
-* CSS3
+* Tailwind CSS (for styling and layout)
+* CSS3 (custom styles in `index.css`)
 
 ### Backend
 
