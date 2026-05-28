@@ -53,7 +53,7 @@ const Stats = () => {
     },
   ];
   return (
-    <div className="absolute bottom-0 left-0 right-0 z-30 translate-y-1/2 select-none overflow-hidden">
+    <div className="md:absolute md:bottom-0 md:left-0 md:right-0 md:z-30 md:translate-y-1/2 relative bottom-auto left-auto right-auto translate-y-0 z-30 select-none md:mt-0">
       <div className="max-w-5xl mx-auto px-4 md:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-0 shadow-2xl rounded-none overflow-hidden">
           {statCards.map((card, idx) => (

@@ -12,7 +12,7 @@ const Card = ({
   return (
     <div
       onClick={onClick}
-      className={`flex items-center gap-8 p-10 md:p-12 transition-all duration-500 ease-out transform group cursor-pointer ${cardClass}`}
+      className={`flex items-center gap-4 sm:gap-8 p-6 sm:p-10 md:p-12 transition-all duration-500 ease-out transform group cursor-pointer ${cardClass}`}
     >
       {icon && (
         <div className={`p-2 rounded-none transition-all duration-500 ease-out group-hover:scale-110 group-hover:rotate-3 ${iconWrapperClass}`}>

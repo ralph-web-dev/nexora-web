@@ -13,6 +13,7 @@ const ContactUs = () => {
   const [message, setMessage] = useState('');
   const [status, setStatus] = useState('');
   const [error, setError] = useState('');
+  const [submitting, setSubmitting] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -23,6 +24,8 @@ const ContactUs = () => {
       setError('Please fill in name, email, and message.');
       return;
     }
+
+    setSubmitting(true);
 
     try {
       const response = await fetch(`${API_BASE_URL}/api/inquiry`, {
@@ -45,11 +48,13 @@ const ContactUs = () => {
       setMessage('');
     } catch (err) {
       setError(err.message || 'Submission failed.');
+    } finally {
+      setSubmitting(false);
     }
   };
 
   return (
-    <section className="w-full bg-white text-slate-800 py-24 md:py-32 select-none overflow-hidden">
+    <section className="w-full bg-white text-slate-800 py-16 md:py-32 select-none overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         <ScrollReveal delay={0.1} className="text-center mb-16 md:mb-20">
           <span className="text-[#06a3da] font-extrabold uppercase tracking-widest text-base md:text-lg mb-3 block">
@@ -132,10 +137,11 @@ const ContactUs = () => {
                 type="submit"
                 text="Send Message" 
                 variant="solid" 
+                isLoading={submitting}
                 className="w-full py-4 text-base shadow-md mt-2" 
               />
-              {status && <Toast type="success" message={status} className="mt-4" />}
-              {error && <Toast type="error" message={error} className="mt-4" />}
+              {status && <Toast type="success" message={status} onClose={() => setStatus('')} className="mt-4 w-fit mx-auto px-6" />}
+              {error && <Toast type="error" message={error} onClose={() => setError('')} className="mt-4 w-fit mx-auto px-6" />}
             </form>
           </ScrollReveal>
           <ScrollReveal delay={0.6} direction="left" className="h-[400px] lg:h-auto min-h-[400px] rounded-sm overflow-hidden bg-slate-200">

@@ -13,9 +13,13 @@ const Home = () => {
       <div className="ambient-glow-3"></div>
       <div className="relative">
         <Hero />
-        <Stats />
+        <div className="relative md:static bg-white md:bg-transparent pt-10 pb-6 md:py-0">
+          <Stats />
+        </div>
       </div>
-      <About />
+      <div className="pt-16 md:pt-36 bg-white">
+        <About />
+      </div>
       <WhyChooseUs />
       <Services />
       <ContactForm />

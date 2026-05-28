@@ -8,7 +8,7 @@ import teamImg from '../../assets/images/team.jpg';
 import ScrollReveal from '../ui/ScrollReveal';
 const WhyChooseUs = () => {
   return (
-    <section id="why-choose-us" className="w-full bg-white text-slate-800 py-24 md:py-32 select-none overflow-hidden">
+    <section id="why-choose-us" className="w-full bg-white text-slate-800 py-16 md:py-32 select-none overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         <ScrollReveal delay={0.1} className="text-center mb-16 md:mb-24">
           <span className="text-[#06a3da] font-extrabold uppercase tracking-widest text-base md:text-lg mb-3 block">
