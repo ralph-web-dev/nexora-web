@@ -161,26 +161,24 @@ const Footer = () => {
             </ul>
           </div>
         </div>
-
-        {/* Copyright Bar */}
-        <div className="bg-[#071630] border-t border-[#091e3e] py-6 px-6 md:px-12 lg:px-16 relative mt-auto">
-          
-          <div className="flex flex-col md:flex-row justify-between items-center text-sm text-white/70">
-            <p className="text-center md:text-left mx-auto md:mx-0">© 2025 Nexora IT Solutions. All Rights Reserved.</p>
-          </div>
-          <motion.button
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="absolute right-6 top-1/2 -translate-y-1/2 w-10 h-10 bg-[#06a3da] hover:bg-[#0592c5] flex items-center justify-center transition-colors cursor-pointer"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18" />
-            </svg>
-          </motion.button>
-        </div>
-      </div>
       </ScrollReveal>
+      
+      {/* Copyright Bar - Full Width at Bottom */}
+      <div className="bg-[#071630] border-t border-[#091e3e] py-6 px-6 md:px-12 relative w-full">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-center items-center text-sm text-white/70 relative">
+          <p className="text-center md:text-left">© 2025 Nexora IT Solutions. All Rights Reserved.</p>
+        </div>
+        <motion.button
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="absolute right-6 top-1/2 -translate-y-1/2 w-10 h-10 bg-[#06a3da] hover:bg-[#0592c5] flex items-center justify-center transition-colors cursor-pointer"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+          </svg>
+        </motion.button>
+      </div>
     </footer>
   );
 };
