@@ -1,5 +1,9 @@
-const nodemailer = require('nodemailer');
-const path = require('path');
+import nodemailer from 'nodemailer';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const mailTransport = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
@@ -74,7 +78,7 @@ const buildEmailTemplate = (title, contentHtml) => `
   </html>
 `;
 
-module.exports = async (req, res) => {
+export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
