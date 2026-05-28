@@ -62,7 +62,7 @@ const ContactForm = () => {
 
   return (
     <section id="contact" className="w-full bg-white text-slate-800 py-16 md:py-32 select-none overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 md:px-8">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16 xl:px-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
           <div className="flex flex-col items-start text-left">
             <ScrollReveal delay={0.1}>

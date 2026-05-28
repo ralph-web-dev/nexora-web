@@ -82,7 +82,7 @@ const Hero = () => {
           );
         })}
       </div>
-      <div className="relative z-20 max-w-7xl mx-auto px-4 md:px-8 text-center text-white flex flex-col items-center">
+      <div className="relative z-20 max-w-7xl mx-auto px-6 md:px-12 lg:px-16 xl:px-20 text-center text-white flex flex-col items-center">
         {slides.map((slide, idx) => {
           const isActive = idx === currentSlide;
           return (

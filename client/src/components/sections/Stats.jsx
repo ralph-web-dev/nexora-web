@@ -54,7 +54,7 @@ const Stats = () => {
   ];
   return (
     <div className="md:absolute md:bottom-0 md:left-0 md:right-0 md:z-30 md:translate-y-1/2 relative bottom-auto left-auto right-auto translate-y-0 z-30 select-none md:mt-0">
-      <div className="max-w-5xl mx-auto px-4 md:px-8">
+      <div className="max-w-5xl mx-auto px-6 md:px-12 lg:px-16 xl:px-20">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-0 shadow-2xl rounded-none overflow-hidden">
           {statCards.map((card, idx) => (
             <ScrollReveal key={idx} delay={0.2 + (idx * 0.15)} direction="up" startScale={0.9} className="w-full h-full flex">

@@ -55,7 +55,7 @@ const ContactUs = () => {
 
   return (
     <section className="w-full bg-white text-slate-800 py-16 md:py-32 select-none overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 md:px-8">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16 xl:px-20">
         <ScrollReveal delay={0.1} className="text-center mb-16 md:mb-20">
           <span className="text-[#06a3da] font-extrabold uppercase tracking-widest text-base md:text-lg mb-3 block">
             Contact Us

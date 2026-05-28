@@ -155,7 +155,7 @@ const Footer = () => {
           </div>
         </div>
       </ScrollReveal>
-      <div className="bg-[#071630] border-t border-[#091e3e] py-6 px-4 md:px-8 relative">
+      <div className="bg-[#071630] border-t border-[#091e3e] py-6 px-6 md:px-12 lg:px-16 xl:px-20 relative">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-center items-center text-sm text-white/70">
           <p>© 2025 Nexora IT Solutions. All Rights Reserved.</p>
         </div>
