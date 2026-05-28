@@ -13,7 +13,7 @@ import rightArrowIcon from '../../assets/icons/right-arrow.svg';
 import ScrollReveal from '../ui/ScrollReveal';
 import { motion } from 'framer-motion';
 const Footer = () => {
-  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:4000';
+
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState('');
   const [error, setError] = useState('');
@@ -32,7 +32,7 @@ const Footer = () => {
     setSubmitting(true);
 
     try {
-      const response = await fetch(`${API_BASE_URL}/api/subscribe`, {
+      const response = await fetch('/api/subscribe', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
