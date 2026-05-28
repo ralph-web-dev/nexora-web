@@ -59,7 +59,7 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="relative min-h-[90vh] lg:min-h-screen flex items-center justify-center pt-32 pb-44 overflow-hidden bg-slate-950"
+      className="relative min-h-[85vh] lg:min-h-screen flex items-center justify-center pt-24 pb-32 md:pt-32 md:pb-44 overflow-hidden bg-slate-950"
     >
       <div className="absolute inset-0 z-0">
         {slides.map((slide, idx) => {

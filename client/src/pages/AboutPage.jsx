@@ -29,7 +29,7 @@ const AboutPage = () => {
           </div>
         </ScrollReveal>
       </div>
-      <div className="-mt-24 md:-mt-28">
+      <div className="w-full">
         <About />
       </div>
     </motion.div>

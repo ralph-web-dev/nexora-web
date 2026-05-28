@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import AnimatedUnderline from '../ui/AnimatedUnderline';
 import Dropdown from '../ui/Dropdown';
 import Toast from '../ui/Toast';
+import Button from '../ui/Button';
 import replyIcon from '../../assets/icons/reply.svg';
 import contactIcon from '../../assets/icons/contact.svg';
 import ScrollReveal from '../ui/ScrollReveal';
@@ -13,6 +14,7 @@ const ContactForm = () => {
   const [message, setMessage] = useState('');
   const [status, setStatus] = useState('');
   const [error, setError] = useState('');
+  const [submitting, setSubmitting] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -23,6 +25,8 @@ const ContactForm = () => {
       setError('Please provide name, email, and a message.');
       return;
     }
+
+    setSubmitting(true);
 
     try {
       const response = await fetch(`${API_BASE_URL}/api/inquiry`, {
@@ -51,11 +55,13 @@ const ContactForm = () => {
       setMessage('');
     } catch (err) {
       setError(err.message || 'Submission failed.');
+    } finally {
+      setSubmitting(false);
     }
   };
 
   return (
-    <section id="contact" className="w-full bg-white text-slate-800 py-24 md:py-32 select-none overflow-hidden">
+    <section id="contact" className="w-full bg-white text-slate-800 py-16 md:py-32 select-none overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
           <div className="flex flex-col items-start text-left">
@@ -138,14 +144,14 @@ const ContactForm = () => {
                 onChange={(e) => setMessage(e.target.value)}
                 className="w-full bg-white p-4 text-[#4f4f4f] placeholder-slate-400 outline-none transition-shadow resize-y rounded-none"
               ></textarea>
-              <button
+              <Button
                 type="submit"
-                className="w-full bg-[#091e3e] text-white text-sm font-bold p-4 hover:bg-[#071630] transition-colors duration-300 rounded-none cursor-pointer"
-              >
-                Request a Quote
-              </button>
-              {status && <Toast type="success" message={status} className="mt-4" />}
-              {error && <Toast type="error" message={error} className="mt-4" />}
+                text="Request a Quote"
+                isLoading={submitting}
+                className="w-full bg-[#091e3e] hover:bg-[#071630] text-white text-sm font-bold p-4 rounded-none cursor-pointer shadow-none tracking-widest"
+              />
+              {status && <Toast type="success" message={status} onClose={() => setStatus('')} className="mt-4 w-fit mx-auto px-6" />}
+              {error && <Toast type="error" message={error} onClose={() => setError('')} className="mt-4 w-fit mx-auto px-6" />}
             </form>
           </ScrollReveal>
         </div>
