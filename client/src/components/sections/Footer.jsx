@@ -55,19 +55,16 @@ const Footer = () => {
   };
 
   return (
-    <footer className="w-full relative overflow-hidden flex flex-col md:flex-row">
-      {/* Absolute background color for the right side to ensure full bleed */}
-      <div className="absolute top-0 right-0 bottom-0 w-full md:w-2/3 bg-[#091e3e] -z-10"></div>
-      
-      {/* Left Blue Card */}
-      <div className="w-full md:w-1/3 bg-[#06a3da] relative z-10 flex flex-col justify-center px-6 md:px-10 lg:px-16 py-12 md:py-16">
-        {/* Full bleed left background */}
-        <div className="hidden md:block absolute top-0 -left-[100vw] bottom-0 w-[100vw] bg-[#06a3da] -z-10"></div>
+    <footer className="w-full bg-[#091e3e] text-white relative overflow-hidden">
+      <ScrollReveal delay={0.1} className="max-w-7xl mx-auto flex flex-col md:flex-row relative z-20">
         
-        <div className="flex items-center gap-4 mb-6">
-          <img src={logo} alt="Nexora Logo" className="w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 object-contain shrink-0" />
-          <h2 className="text-xl md:text-2xl font-black tracking-wide text-white whitespace-nowrap">Nexora IT Solutions</h2>
-        </div>
+        {/* Left Blue Card */}
+        <div className="w-full md:w-1/3 bg-[#06a3da] relative z-10 flex flex-col justify-center px-6 md:px-10 lg:px-12 py-12 md:py-16">
+          
+          <div className="flex items-center gap-4 mb-6">
+            <img src={logo} alt="Nexora Logo" className="w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 object-contain shrink-0" />
+            <h2 className="text-xl md:text-2xl font-black tracking-wide text-white whitespace-nowrap">Nexora IT Solutions</h2>
+          </div>
         <p className="text-white/90 text-sm leading-relaxed mb-8 text-justify">
           Nexora IT Solutions is a cutting-edge IT and digital transformation company dedicated to empowering organizations with smart, scalable, and secure technology solutions.
         </p>
@@ -167,17 +164,15 @@ const Footer = () => {
 
         {/* Copyright Bar */}
         <div className="bg-[#071630] border-t border-[#091e3e] py-6 px-6 md:px-12 lg:px-16 relative mt-auto">
-          {/* Full bleed right background for copyright */}
-          <div className="hidden md:block absolute top-0 -right-[100vw] bottom-0 w-[100vw] bg-[#071630] -z-10"></div>
           
-          <div className="flex flex-col md:flex-row justify-center items-center text-sm text-white/70">
-            <p>© 2025 Nexora IT Solutions. All Rights Reserved.</p>
+          <div className="flex flex-col md:flex-row justify-between items-center text-sm text-white/70">
+            <p className="text-center md:text-left mx-auto md:mx-0">© 2025 Nexora IT Solutions. All Rights Reserved.</p>
           </div>
           <motion.button
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="absolute right-4 top-0 -translate-y-1/2 w-10 h-10 bg-[#06a3da] hover:bg-[#0592c5] flex items-center justify-center transition-colors cursor-pointer"
+            className="absolute right-6 top-1/2 -translate-y-1/2 w-10 h-10 bg-[#06a3da] hover:bg-[#0592c5] flex items-center justify-center transition-colors cursor-pointer"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18" />
@@ -185,6 +180,7 @@ const Footer = () => {
           </motion.button>
         </div>
       </div>
+      </ScrollReveal>
     </footer>
   );
 };
