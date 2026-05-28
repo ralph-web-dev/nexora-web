@@ -1,5 +1,6 @@
 import nodemailer from 'nodemailer';
 import path from 'path';
+import { logoBase64 } from './logoBase64.js';
 
 const mailTransport = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
@@ -11,9 +12,10 @@ const mailTransport = nodemailer.createTransport({
   },
 });
 
-const getLogoAttachment = (baseUrl) => ({
+const getLogoAttachment = () => ({
   filename: 'logo.png',
-  href: `${baseUrl}/logo.png`,
+  content: logoBase64,
+  encoding: 'base64',
   cid: 'nexora_logo',
 });
 
@@ -85,10 +87,6 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'name, email, and message are required' });
   }
 
-  const host = req.headers.host;
-  const protocol = req.headers['x-forwarded-proto'] || 'http';
-  const baseUrl = `${protocol}://${host}`;
-
   const plainText = `Name: ${name}\nEmail: ${email}\nService: ${service || 'Not selected'}\nSubject: ${subject || 'General inquiry'}\n\nMessage:\n${message}`;
 
   const htmlContent = `
@@ -125,7 +123,7 @@ export default async function handler(req, res) {
     subject: subject || service || `New inquiry from ${name}`,
     text: plainText,
     html: buildEmailTemplate(`New inquiry from ${name}`, htmlContent),
-    attachments: [getLogoAttachment(baseUrl)],
+    attachments: [getLogoAttachment()],
     replyTo: email,
   };
 
