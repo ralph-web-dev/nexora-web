@@ -1,29 +1,79 @@
-Nexora IT Solutions
-A modern corporate website with dynamic animations, contact forms, and a serverless email delivery backend.
+# Nexora IT Solutions
 
-Project Structure
-client/src/ — React frontend including components, pages, styling (index.css), and client-side JavaScript.
-client/public/ — static site assets including Favicon and images.
-client/api/ — Vercel serverless-style handlers (inquiry.js, subscribe.js) for deployments that support function routes.
-client/package.json — frontend dependencies and build scripts.
-server/ — (Legacy/Local) Express API service environment.
+A modern full-stack corporate website built with React, Vite, and Vercel Serverless Functions. The project features dynamic UI animations, responsive layouts, integrated contact and newsletter forms, and automated email delivery powered by Nodemailer and Gmail SMTP.
 
-Features
-Responsive corporate frontend.
-Contact form and newsletter integration.
-Email sending via Gmail and Nodemailer.
-Scroll animations and dynamic routing.
-Fully contained serverless backend functions.
+---
 
-Prerequisites
-Node.js 18+ installed.
-A Gmail account with an App Password for SMTP.
+## Project Structure
 
-Backend Setup (Serverless Local Dev)
-Open a terminal in client/.
-Install dependencies:
-npm install
-Create a .env file in client/ with the following values:
+```bash
+client/
+├── src/                # React frontend source files
+│   ├── components/     # Reusable UI components
+│   ├── pages/          # Application pages
+│   ├── index.css       # Global styles
+│   └── main.jsx        # Application entry point
+│
+├── public/             # Static assets (images, favicon, etc.)
+│
+├── api/                # Vercel Serverless Functions
+│   ├── inquiry.js      # Contact form email handler
+│   └── subscribe.js    # Newsletter subscription handler
+│
+├── package.json        # Frontend dependencies and scripts
+│
+server/                 # Legacy/local Express API environment
+```
+
+---
+
+## Features
+
+* Modern and responsive corporate UI
+* Smooth animations and interactive user experience
+* Contact form integration with email delivery
+* Newsletter subscription system
+* Dynamic client-side routing
+* Serverless backend architecture using Vercel Functions
+* Gmail SMTP integration with Nodemailer
+
+---
+
+## Tech Stack
+
+### Frontend
+
+* React
+* Vite
+* JavaScript
+* CSS3
+
+### Backend
+
+* Vercel Serverless Functions
+* Node.js
+* Nodemailer
+
+### Deployment
+
+* Vercel
+
+---
+
+## Prerequisites
+
+Before running the project locally, ensure you have:
+
+* Node.js 18 or higher installed
+* A Gmail account with an App Password enabled for SMTP access
+
+---
+
+# Environment Variables
+
+Create a `.env` file inside the `client/` directory and add the following:
+
+```env
 SMTP_HOST=smtp.gmail.com
 SMTP_PORT=587
 SMTP_SECURE=false
@@ -31,31 +81,133 @@ SMTP_USER=your-email@gmail.com
 SMTP_PASS=your-gmail-app-password
 FROM_EMAIL=your-email@gmail.com
 TO_EMAIL=your-email@gmail.com
+```
 
-Frontend Setup
-Open a terminal in client/.
-Start the local development server:
+---
+
+## Installation & Setup
+
+### 1. Install Dependencies
+
+Navigate to the client directory:
+
+```bash
+cd client
+npm install
+```
+
+---
+
+### 2. Start Development Server
+
+Run the local development server:
+
+```bash
 npm run dev
-The frontend will run on http://localhost:5173 by default.
+```
 
-API Endpoints
-POST /api/inquiry
-Accepts JSON: { name, email, service, subject, message }
-Sends a styled HTML inquiry email to the specified TO_EMAIL.
+The application will be available at:
 
-POST /api/subscribe
-Accepts JSON: { email }
-Sends a styled HTML newsletter subscription email.
+```bash
+http://localhost:5173
+```
 
-Notes
-The backend uses Gmail SMTP via Nodemailer.
-Make sure SMTP_PASS is a valid Gmail App Password, not your regular account password.
-Because this project uses Vercel Serverless Functions, the API endpoints are hosted directly from the client/api/ directory.
+---
 
-Recommended Deployment
-Full Stack (Frontend + Serverless Functions): Vercel. 
-Simply link your repository to Vercel, set the Framework Preset to Vite, and set the Root Directory to client/.
-Add all SMTP variables in your Vercel Project Environment Variables settings.
+## API Endpoints
 
-Contact
-If you want to update this website or add new sections, edit files in client/src/components/ for UI changes and client/api/ for backend logic.
+### POST `/api/inquiry`
+
+Handles customer inquiries from the contact form.
+
+#### Request Body
+
+```json
+{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "service": "Web Development",
+  "subject": "Project Inquiry",
+  "message": "I would like to discuss a project."
+}
+```
+
+#### Functionality
+
+* Sends a styled HTML email using Nodemailer
+* Delivers messages directly to the configured business email
+
+---
+
+### POST `/api/subscribe`
+
+Handles newsletter subscriptions.
+
+#### Request Body
+
+```json
+{
+  "email": "subscriber@example.com"
+}
+```
+
+#### Functionality
+
+* Sends a styled HTML subscription notification email
+
+---
+
+## Notes
+
+* The project uses Gmail SMTP through Nodemailer for email delivery.
+* `SMTP_PASS` must be a valid Gmail App Password.
+* Do not use your regular Gmail account password.
+* Serverless API routes are deployed directly from the `client/api/` directory when hosted on Vercel.
+
+---
+
+## Deployment
+
+### Recommended Platform: Vercel
+
+1. Connect your GitHub repository to Vercel
+2. Set the framework preset to **Vite**
+3. Set the root directory to:
+
+```bash
+client/
+```
+
+4. Add all required environment variables in the Vercel dashboard
+
+---
+
+## Development Notes
+
+### Frontend Updates
+
+Edit files inside:
+
+```bash
+client/src/components/
+```
+
+### Backend Logic
+
+Edit serverless functions inside:
+
+```bash
+client/api/
+```
+
+---
+
+## License
+
+This project is intended for portfolio and business presentation purposes.
+
+---
+
+## Author
+
+Developed by Ralph.Dev
