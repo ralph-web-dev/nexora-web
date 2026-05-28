@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AnimatedUnderline from '../ui/AnimatedUnderline';
+import Toast from '../ui/Toast';
 import logo from '../../assets/images/logo.png';
 import locationIcon from '../../assets/icons/location-pin.svg';
 import emailIcon from '../../assets/icons/open-message.svg';
@@ -10,6 +11,47 @@ import youtubeIcon from '../../assets/icons/youtube.svg';
 import rightArrowIcon from '../../assets/icons/right-arrow.svg';
 import ScrollReveal from '../ui/ScrollReveal';
 const Footer = () => {
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:4000';
+  const [email, setEmail] = useState('');
+  const [status, setStatus] = useState('');
+  const [error, setError] = useState('');
+  const [submitting, setSubmitting] = useState(false);
+
+  const handleSignup = async (event) => {
+    event.preventDefault();
+    setStatus('');
+    setError('');
+
+    if (!email) {
+      setError('Please enter your email address.');
+      return;
+    }
+
+    setSubmitting(true);
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/subscribe`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || 'Signup failed.');
+      }
+
+      setStatus('Thanks! You are signed up.');
+      setEmail('');
+    } catch (err) {
+      setError(err.message || 'Subscription failed.');
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
   return (
     <footer className="w-full bg-[#091e3e] text-white relative overflow-hidden">
       <ScrollReveal delay={0.1} className="max-w-7xl mx-auto flex flex-col md:flex-row relative z-20">
@@ -22,19 +64,24 @@ const Footer = () => {
           <p className="text-white/90 text-sm leading-relaxed mb-8 text-justify">
             Nexora IT Solutions is a cutting-edge IT and digital transformation company dedicated to empowering organizations with smart, scalable, and secure technology solutions.
           </p>
-          <form className="flex w-full">
+          <form onSubmit={handleSignup} className="flex w-full items-center gap-0 rounded-none overflow-hidden border border-white/20 shadow-sm">
             <input 
               type="email" 
               placeholder="Your Email" 
-              className="w-full bg-white p-3 text-[#4f4f4f] placeholder-slate-400 outline-none rounded-none"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="flex-1 min-w-0 bg-white px-3 h-12 text-[#4f4f4f] placeholder-slate-400 outline-none rounded-none border-none"
             />
             <button 
               type="submit" 
-              className="bg-[#091e3e] text-white px-4 py-3 font-medium hover:bg-[#071630] transition-colors rounded-none whitespace-nowrap cursor-pointer"
+              disabled={submitting}
+              className="h-12 bg-[#091e3e] disabled:opacity-60 text-white px-6 font-medium hover:bg-[#071630] transition-colors rounded-none whitespace-nowrap cursor-pointer"
             >
-              Sign Up
+              {submitting ? 'Signing Up...' : 'Sign Up'}
             </button>
           </form>
+          {status && <Toast type="success" message={status} className="mt-3" />}
+          {error && <Toast type="error" message={error} className="mt-3" />}
         </div>
         <div className="p-8 md:p-12 md:w-2/3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           <div>
