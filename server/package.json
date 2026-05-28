@@ -6,7 +6,7 @@
   "type": "commonjs",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon --watch .env --watch index.js index.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
