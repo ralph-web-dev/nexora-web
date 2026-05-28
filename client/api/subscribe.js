@@ -1,9 +1,5 @@
 import nodemailer from 'nodemailer';
 import path from 'path';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 const mailTransport = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
@@ -17,7 +13,7 @@ const mailTransport = nodemailer.createTransport({
 
 const getLogoAttachment = () => ({
   filename: 'logo.png',
-  path: path.join(__dirname, 'assets/logo.png'),
+  path: path.join(process.cwd(), 'api/assets/logo.png'),
   cid: 'nexora_logo',
 });
 
